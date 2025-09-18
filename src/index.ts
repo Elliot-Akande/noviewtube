@@ -5,7 +5,7 @@ const linkElement = document.querySelector(".link");
 
 const rand = (min: number, max: number): string => {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num.toString().padStart(max.toString().length);
+  return num.toString().padStart(max.toString().length, "0");
 };
 
 interface Pattern {
