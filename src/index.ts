@@ -245,20 +245,24 @@ const patterns: Pattern[] = [
   },
 ];
 
-const generateQuery = (): string => {
+interface Query {
+  query: string;
+  comment?: string;
+}
+const generateQuery = (): Query => {
   const randIndex = Math.floor(Math.random() * patterns.length);
-  const { prefix, getSuffix } = patterns[randIndex];
+  const { prefix, comment, getSuffix } = patterns[randIndex];
   const query = getSuffix ? `${prefix}${getSuffix()}` : prefix;
-  return query;
+  return { query, comment };
 };
 
-const updateLinkElement = (query: string): void => {
+const updateLinkElement = ({ query, comment }: Query): void => {
   const link = `https://www.youtube.com/results?search_query=${query.replace(
     / /g,
     "+"
   )}`;
   linkElement.setAttribute("href", link);
-  linkElement.textContent = query;
+  linkElement.textContent = `${query}${comment ? ` (${comment})` : ""}`;
 };
 
 generateButton.addEventListener("click", () =>
