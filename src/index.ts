@@ -8,10 +8,12 @@ const rand = (min: number, max: number): string => {
   return num.toString().padStart(max.toString().length, "0");
 };
 
+type Filter = "playlist";
 interface Pattern {
   prefix: string;
   getSuffix?: () => string;
   comment?: string;
+  filter?: Filter;
 }
 const patterns: Pattern[] = [
   {
@@ -155,12 +157,36 @@ const patterns: Pattern[] = [
   // InShot YMD (>2016)
   // PXL YMD (>2020)
   // AUD-YMD (>2017)
-  // 240p 400k (Filter: Playlist) NSFW
-  // 480p 600k             ^             NSFW
-  // 480p 2000k           ^             NSFW
-  // 720p 1500k           ^             NSFW
-  // 720p 4000k           ^             NSFW
-  // Clips4Sale            ^             NSFW
+  {
+    prefix: "240p 400k",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
+  {
+    prefix: "480p 600k",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
+  {
+    prefix: "480p 2000k",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
+  {
+    prefix: "720p 1500k",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
+  {
+    prefix: "720p 4000k",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
+  {
+    prefix: "Clips4Sale",
+    filter: "playlist",
+    comment: "NSFW Playlist",
+  },
   // WhatsApp Video YYYY MM DD  (>2015)
   // Desktop YYYY MM DD (Game Capture)
   {
@@ -248,20 +274,26 @@ const patterns: Pattern[] = [
 interface Query {
   query: string;
   comment?: string;
+  filter?: Filter;
 }
 const generateQuery = (): Query => {
   const randIndex = Math.floor(Math.random() * patterns.length);
-  const { prefix, comment, getSuffix } = patterns[randIndex];
+  // const randIndex = patterns.findIndex((p) => p.prefix === "240p 400k");
+  const { prefix, getSuffix, comment, filter } = patterns[randIndex];
   const query = getSuffix ? `${prefix}${getSuffix()}` : prefix;
-  return { query, comment };
+  return { query, comment, filter };
 };
 
-const updateLinkElement = ({ query, comment }: Query): void => {
-  const link = `https://www.youtube.com/results?search_query=${query.replace(
-    / /g,
-    "+"
-  )}`;
-  linkElement.setAttribute("href", link);
+const updateLinkElement = ({ query, comment, filter }: Query): void => {
+  const url = new URL("https://www.youtube.com/results");
+  url.searchParams.set("search_query", query.replace(/ /g, "+"));
+
+  if (filter === "playlist") {
+    url.searchParams.set("sp", "EgIQAw%253D%253D");
+  }
+
+  url.search = decodeURIComponent(url.search);
+  linkElement.setAttribute("href", url.href);
   linkElement.textContent = `${query}${comment ? ` (${comment})` : ""}`;
 };
 
