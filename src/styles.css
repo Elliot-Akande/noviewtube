@@ -91,6 +91,7 @@ a {
 }
 
 .link-container {
+  position: relative;
   margin-top: 1rem;
   padding: 1rem;
   background-color: var(--bg-light);
@@ -107,6 +108,13 @@ a {
   background-repeat: no-repeat;
   background-size: 0.857em;
   padding-right: 1.2em;
+}
+
+.link::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  border-radius: 0.5rem;
 }
 
 footer {
