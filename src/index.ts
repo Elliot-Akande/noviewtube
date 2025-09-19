@@ -520,7 +520,11 @@ const updateLinkElement = ({ query, comment, filter }: Query): void => {
   linkElement.textContent = `${query}${comment ? ` (${comment})` : ""}`;
 };
 
-window.onload = () => updateLinkElement(generateQuery());
+window.onload = () => {
+  updateLinkElement(generateQuery());
+  const footer = document.querySelector("footer");
+  footer.textContent += ` ${new Date().getFullYear()}`;
+};
 generateButton.addEventListener("click", () =>
   updateLinkElement(generateQuery())
 );

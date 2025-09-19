@@ -25,14 +25,19 @@
 }
 
 body {
+  background-color: var(--bg-dark);
+  color: var(--text-muted);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: var(--bg-dark);
-  color: var(--text-muted);
-  height: 100vh;
 }
 
 h1 {
@@ -96,4 +101,10 @@ a {
   border-radius: 0.5rem;
   color: var(--text);
   font-size: 1.125rem;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  color: var(--bg);
 }
