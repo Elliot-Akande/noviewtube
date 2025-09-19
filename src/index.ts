@@ -8,7 +8,11 @@ const rand = (min: number, max: number): string => {
   return num.toString().padStart(max.toString().length, "0");
 };
 
-const randDate = (startYear: number, pattern?: string) => {
+interface RandDate {
+  startYear?: number;
+  pattern?: string;
+}
+const randDate = ({ startYear = 1980, pattern }: RandDate = {}) => {
   const start = new Date(startYear, 0, 1);
   const end = new Date();
   const date = new Date(
@@ -153,34 +157,55 @@ const patterns: Pattern[] = [
     comment: "VHS",
   },
   {
-    prefix: "My Slideshow Video",
+    prefix: '"My Slideshow Video"',
     comment: "Video Editor",
   },
   {
-    prefix: "My Slideshow",
+    prefix: '"My Slideshow"',
     comment: "Video Editor",
   },
   {
-    prefix: "My Slideshow ",
-    getSuffix: () => rand(0, 99),
+    prefix: '"My Slideshow',
+    getSuffix: () => `${rand(0, 99)}"`,
     comment: "Video Editor",
   },
   {
-    prefix: "My Stupeflix Video",
+    prefix: '"My Stupeflix Video"',
     comment: "Video Editor",
   },
   {
-    prefix: "My Stupeflix Video ",
-    getSuffix: () => rand(0, 1050),
+    prefix: '"My Stupeflix Video',
+    getSuffix: () => `${rand(0, 1050)}"`,
     comment: "Video Editor",
   },
-  // YMD (20250826)
-  // WIN YMD (>2013)
-  // VID YMD (>2008)
-  // Capture YMD (>2008)
-  // InShot YMD (>2016)
-  // PXL YMD (>2020)
-  // AUD-YMD (>2017)
+  {
+    prefix: "",
+    getSuffix: () => randDate(),
+  },
+  {
+    prefix: "WIN ",
+    getSuffix: () => randDate({ startYear: 2013 }),
+  },
+  {
+    prefix: "VID ",
+    getSuffix: () => randDate({ startYear: 2008 }),
+  },
+  {
+    prefix: "Capture ",
+    getSuffix: () => randDate({ startYear: 2008 }),
+  },
+  {
+    prefix: "InShot ",
+    getSuffix: () => randDate({ startYear: 2016 }),
+  },
+  {
+    prefix: "PXL ",
+    getSuffix: () => randDate({ startYear: 2020 }),
+  },
+  {
+    prefix: "AUD-",
+    getSuffix: () => randDate({ startYear: 2017 }),
+  },
   {
     prefix: "240p 400k",
     filter: "playlist",
@@ -211,15 +236,31 @@ const patterns: Pattern[] = [
     filter: "playlist",
     comment: "NSFW Playlist",
   },
-  // WhatsApp Video YYYY MM DD  (>2015)
-  // Desktop YYYY MM DD (Game Capture)
   {
-    prefix: "Axon Body * Video",
+    prefix: "WhatsApp Video ",
+    getSuffix: () => randDate({ startYear: 2015, pattern: "YYYY MM DD" }),
+  },
+  {
+    prefix: "Desktop ",
+    getSuffix: () => randDate({ pattern: "YYYY MM DD" }),
+    comment: "Game Capture",
+  },
+  {
+    prefix: '"Axon Body * Video"',
     comment: "Body Cam",
   },
-  // WP YMD (Misc) (>2011)
-  // “Video YMD” (Misc) (>2012)
-  // KakaoTalk Video YYYY MM (Misc) (>2012)
+  {
+    prefix: "WP ",
+    getSuffix: () => randDate({ startYear: 2011 }),
+  },
+  {
+    prefix: '"Video ',
+    getSuffix: () => `${randDate({ startYear: 2012 })}"`,
+  },
+  {
+    prefix: "KakaoTalk Video ",
+    getSuffix: () => randDate({ startYear: 2012, pattern: "YYYY MM" }),
+  },
   {
     prefix: "AVSEQ",
     getSuffix: () => rand(0, 99),
@@ -233,7 +274,11 @@ const patterns: Pattern[] = [
     getSuffix: () => rand(0, 1050),
     comment: "Drone / Dashcam",
   },
-  // GMTYMD (Zoom)
+  {
+    prefix: "GMT",
+    getSuffix: () => randDate(),
+    comment: "Zoom",
+  },
   {
     prefix: "SVM A",
     getSuffix: () => rand(0, 1000),
@@ -245,7 +290,7 @@ const patterns: Pattern[] = [
     comment: "Camera",
   },
   {
-    prefix: "My Videolicious Video",
+    prefix: '"My Videolicious Video"',
     comment: "Video Editor",
   },
   {
