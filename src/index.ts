@@ -8,6 +8,30 @@ const rand = (min: number, max: number): string => {
   return num.toString().padStart(max.toString().length, "0");
 };
 
+const randDate = (startYear: number, pattern?: string) => {
+  const start = new Date(startYear, 0, 1);
+  const end = new Date();
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+  const [day, month, year] = date.toLocaleDateString("en-UK").split("/");
+  if (!pattern) {
+    return `${year}${month}${day}`;
+  }
+
+  const patternFragments = {
+    YYYY: year,
+    YY: year.slice(2),
+    MM: month,
+    DD: day,
+  };
+  const formatted = Object.entries(patternFragments).reduce(
+    (prev, [key, val]) => prev.replace(key, val),
+    pattern
+  );
+  return formatted;
+};
+
 type Filter = "playlist";
 interface Pattern {
   prefix: string;
