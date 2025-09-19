@@ -11,9 +11,7 @@
   --text: hsl(240, 3%, 95%);
   --text-muted: hsl(240, 3%, 70%);
 
-  --primary-30: hsl(0, 70%, 30%);
-  --primary-50: hsl(0, 70%, 50%);
-  --primary-70: hsl(0, 70%, 70%);
+  --primary: hsl(0, 70%, 50%);
 
   --border: 1px solid hsl(240, 3%, 30%);
 }
@@ -70,9 +68,9 @@ a {
   font-size: 1.75rem;
   font-weight: 700;
 
-  box-shadow: 0 0 5px var(--primary-50), 0 0 20px var(--primary-50),
-    0 0 50px var(--primary-50);
-  background-color: var(--primary-50);
+  box-shadow: 0 0 5px var(--primary), 0 0 20px var(--primary),
+    0 0 50px var(--primary);
+  background-color: var(--primary);
   color: var(--text);
   border: none;
   border-radius: 0.5rem;
@@ -80,15 +78,15 @@ a {
 }
 
 .generate:hover {
-  box-shadow: 0 0 5px var(--primary-50), 0 0 20px var(--primary-50),
-    0 0 50px var(--primary-50), 0 0 100px var(--primary-50);
+  box-shadow: 0 0 5px var(--primary), 0 0 20px var(--primary),
+    0 0 50px var(--primary), 0 0 100px var(--primary);
   transform: translateY(-4px);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .generate:active {
   transform: scale(0.98);
-  box-shadow: 0 0 5px var(--primary-50), 0 0 20px var(--primary-50);
+  box-shadow: 0 0 5px var(--primary), 0 0 20px var(--primary);
 }
 
 .link-container {
