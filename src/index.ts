@@ -520,6 +520,7 @@ const updateLinkElement = ({ query, comment, filter }: Query): void => {
   linkElement.textContent = `${query}${comment ? ` (${comment})` : ""}`;
 };
 
+window.onload = () => updateLinkElement(generateQuery());
 generateButton.addEventListener("click", () =>
   updateLinkElement(generateQuery())
 );
