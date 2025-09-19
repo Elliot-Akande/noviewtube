@@ -27,6 +27,7 @@ const randDate = ({ startYear = 1980, pattern }: RandDate = {}) => {
     YYYY: year,
     YY: year.slice(2),
     MM: month,
+    Month: date.toLocaleDateString("en-UK", { month: "long" }),
     DD: day,
   };
   const formatted = Object.entries(patternFragments).reduce(
@@ -306,7 +307,11 @@ const patterns: Pattern[] = [
     getSuffix: () => rand(0, 9999),
     comment: "Camera",
   },
-  // \"Month DD, YYYY\" [\"May 02, 2011\"] (Phone)
+  {
+    prefix: "",
+    getSuffix: () => randDate({ pattern: "Month DD, YYYYY" }),
+    comment: "Phone",
+  },
   {
     prefix: "MAH0",
     getSuffix: () => rand(0, 9999),
@@ -457,6 +462,33 @@ const patterns: Pattern[] = [
     comment: "Game Capture",
     filter: "UPLOAD_DATE",
   },
+  /**
+   * 2006 to 2008
+   */
+  { prefix: '"You have new picture mail! (video)"', comment: "Phone" },
+  { prefix: '"Media1.3gp"', comment: "Phone" },
+  { prefix: '"Media1.3g2"', comment: "Phone" },
+  { prefix: '"Video.3g2"' },
+  { prefix: '"New Multimedia Message"', comment: "Phone" },
+  { prefix: '"Multimedia Message"', comment: "Phone" },
+  { prefix: '"Video from my phone"', comment: "Phone" },
+  { prefix: '"Video uploaded from my mobile phone"', comment: "Phone" },
+  {
+    prefix: '"For ',
+    getSuffix: () => randDate({ pattern: 'Month DD, YYYY"' }),
+    comment: "Phone",
+  },
+  {
+    prefix: '"Recorded on ',
+    getSuffix: () =>
+      `${randDate({
+        pattern: "Month DD, YYYY",
+      })} using a Flip Video Camcorder”`,
+    comment: "Camera",
+  },
+  { prefix: "Video0", getSuffix: () => rand(0, 10), comment: "Camera" },
+  { prefix: "Vid0", getSuffix: () => rand(0, 10), comment: "Camera" },
+  { prefix: "MOV000", getSuffix: () => rand(0, 10), comment: "Camera" },
 ];
 
 interface Query {
