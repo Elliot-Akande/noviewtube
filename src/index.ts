@@ -36,7 +36,7 @@ const randDate = ({ startYear = 1980, pattern }: RandDate = {}) => {
   return formatted;
 };
 
-type Filter = "playlist";
+type Filter = "PLAYLIST" | "UPLOAD_DATE";
 interface Pattern {
   prefix: string;
   getSuffix?: () => string;
@@ -44,6 +44,9 @@ interface Pattern {
   filter?: Filter;
 }
 const patterns: Pattern[] = [
+  /**
+   * Old videos
+   */
   {
     prefix: "MVI ",
     getSuffix: () => rand(0, 9999),
@@ -208,32 +211,32 @@ const patterns: Pattern[] = [
   },
   {
     prefix: "240p 400k",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
     prefix: "480p 600k",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
     prefix: "480p 2000k",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
     prefix: "720p 1500k",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
     prefix: "720p 4000k",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
     prefix: "Clips4Sale",
-    filter: "playlist",
+    filter: "PLAYLIST",
     comment: "NSFW Playlist",
   },
   {
@@ -276,7 +279,7 @@ const patterns: Pattern[] = [
   },
   {
     prefix: "GMT",
-    getSuffix: () => randDate(),
+    getSuffix: () => randDate({ startYear: 2018 }),
     comment: "Zoom",
   },
   {
@@ -303,7 +306,7 @@ const patterns: Pattern[] = [
     getSuffix: () => rand(0, 9999),
     comment: "Camera",
   },
-  // “Month DD, YYYY” [“May 02, 2011”] (Phone)
+  // \"Month DD, YYYY\" [\"May 02, 2011\"] (Phone)
   {
     prefix: "MAH0",
     getSuffix: () => rand(0, 9999),
@@ -338,6 +341,122 @@ const patterns: Pattern[] = [
     getSuffix: () => rand(0, 1000),
     comment: "Drone / Dashcam",
   },
+  /**
+   * New videos
+   */
+  { prefix: "IMG", comment: "Smartphone", filter: "UPLOAD_DATE" },
+  { prefix: "MVI", comment: "Camera", filter: "UPLOAD_DATE" },
+  {
+    prefix: "",
+    getSuffix: () => randDate(),
+    comment: "Misc",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "WIN ",
+    getSuffix: () => randDate(),
+    comment: "Webcam",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "Capture ",
+    getSuffix: () => randDate(),
+    comment: "Webcam",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "VID ",
+    getSuffix: () => randDate(),
+    comment: "Misc",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: '"My Movie ',
+    getSuffix: () => `${rand(0, 9)}"`,
+    comment: "Misc",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: '"My Edited Video"',
+    comment: "Video editor",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "/Storage/Emulated/",
+    comment: "Video editor",
+    filter: "UPLOAD_DATE",
+  },
+  { prefix: "PXL", comment: "Smartphone", filter: "UPLOAD_DATE" },
+  {
+    prefix: "InShot ",
+    getSuffix: () => randDate(),
+    comment: "App",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "WhatsApp Video ",
+    getSuffix: () => randDate({ pattern: "YYYY" }),
+    comment: "App",
+    filter: "UPLOAD_DATE",
+  },
+  { prefix: "FullSizeRender", comment: "Smartphone", filter: "UPLOAD_DATE" },
+  { prefix: "RPReplay ", comment: "Screen Recorder", filter: "UPLOAD_DATE" },
+  { prefix: "VTS 01", comment: "VHS", filter: "UPLOAD_DATE" },
+  { prefix: "DVR", comment: "Game Capture", filter: "UPLOAD_DATE" },
+  {
+    prefix: "VLC Record",
+    comment: "Game Capture / Misc",
+    filter: "UPLOAD_DATE",
+  },
+  { prefix: "Robloxapp", comment: "Game Capture", filter: "UPLOAD_DATE" },
+  { prefix: '".MP4"', comment: "Format", filter: "UPLOAD_DATE" },
+  { prefix: '".3gp"', comment: "Format", filter: "UPLOAD_DATE" },
+  { prefix: '".MOV"', comment: "Format", filter: "UPLOAD_DATE" },
+  { prefix: '".AVI"', comment: "Format", filter: "UPLOAD_DATE" },
+  { prefix: '".WMV"', comment: "Format", filter: "UPLOAD_DATE" },
+  {
+    prefix: '".FLAC"',
+    comment: "Format, Copyright music",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: '".WAV"',
+    comment: "Format, User-created music",
+    filter: "UPLOAD_DATE",
+  },
+  { prefix: "Recording gvo", comment: "Zoom", filter: "UPLOAD_DATE" },
+  { prefix: "Lv 0", comment: "Misc", filter: "UPLOAD_DATE" },
+  { prefix: "bmdjAAAF", comment: "Misc", filter: "UPLOAD_DATE" },
+  {
+    prefix: "YouCut ",
+    getSuffix: () => randDate(),
+    comment: "Misc",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: '"Video "',
+    getSuffix: () => randDate(),
+    comment: "Misc",
+    filter: "UPLOAD_DATE",
+  },
+  { prefix: '"Copy of Copy of"', comment: "Misc", filter: "UPLOAD_DATE" },
+  { prefix: '"Untitled video"', comment: "Misc", filter: "UPLOAD_DATE" },
+  {
+    prefix: '"Com Oculus Vrshell"',
+    comment: "VR Headset",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: '"Com Oculus Metacam"',
+    comment: "VR Headset",
+    filter: "UPLOAD_DATE",
+  },
+  {
+    prefix: "Desktop ",
+    getSuffix: () => randDate({ pattern: "YYYY MM DD" }),
+    comment: "Game Capture",
+    filter: "UPLOAD_DATE",
+  },
 ];
 
 interface Query {
@@ -357,8 +476,11 @@ const updateLinkElement = ({ query, comment, filter }: Query): void => {
   const url = new URL("https://www.youtube.com/results");
   url.searchParams.set("search_query", query.replace(/ /g, "+"));
 
-  if (filter === "playlist") {
+  if (filter === "PLAYLIST") {
     url.searchParams.set("sp", "EgIQAw%253D%253D");
+  }
+  if (filter === "UPLOAD_DATE") {
+    url.searchParams.set("sp", "CAI%253D");
   }
 
   url.search = decodeURIComponent(url.search);
