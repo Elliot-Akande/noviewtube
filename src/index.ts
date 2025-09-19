@@ -522,7 +522,7 @@ const updateLinkElement = ({ query, comment, filter }: Query): void => {
 
 window.onload = () => {
   updateLinkElement(generateQuery());
-  const footer = document.querySelector("footer");
+  const footer = document.querySelector("footer a");
   footer.textContent += ` ${new Date().getFullYear()}`;
 };
 generateButton.addEventListener("click", () =>
