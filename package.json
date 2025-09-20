@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --open",
-    "build": "webpack && cp CNAME dist/CNAME",
+    "start": "webpack serve --open --mode development",
+    "build": "webpack --mode production && cp CNAME dist/CNAME",
     "deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
